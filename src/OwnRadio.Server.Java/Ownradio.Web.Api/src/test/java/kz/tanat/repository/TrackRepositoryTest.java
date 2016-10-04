@@ -1,6 +1,7 @@
 package kz.tanat.repository;
 
 import kz.tanat.domain.Track;
+import kz.tanat.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +25,14 @@ public class TrackRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    private User user;
+
     @Before
     public void setUp() throws Exception {
-        entityManager.persist(new Track("1", "1"));
-        entityManager.persist(new Track("2", "1"));
-        entityManager.persist(new Track("4", "1"));
+        user = entityManager.persist(new User());
+        entityManager.persist(new Track("1", user, "1"));
+        entityManager.persist(new Track("2", user, "1"));
+        entityManager.persist(new Track("4", user, "1"));
     }
 
     @Test
@@ -36,7 +40,7 @@ public class TrackRepositoryTest {
         Set<Track> trackSet = new HashSet<>();
 
         for (int i = 0; i < 3; i++) {
-            Track track = trackRepository.getRandomTrackByUserId("1", new PageRequest(0, 1)).get(0);
+            Track track = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1)).get(0);
             trackSet.add(track);
         }
 

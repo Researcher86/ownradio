@@ -1,6 +1,9 @@
 package kz.tanat.repository;
 
+import kz.tanat.domain.Device;
 import kz.tanat.domain.History;
+import kz.tanat.domain.Track;
+import kz.tanat.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,12 @@ import static org.junit.Assert.assertThat;
 @DataJpaTest
 public class HistoryRepositoryTest {
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private TrackRepository trackRepository;
+    @Autowired
+    private DeviceRepository deviceRepository;
+    @Autowired
     private HistoryRepository historyRepository;
 
     @Autowired
@@ -29,7 +38,11 @@ public class HistoryRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        history = new History("1", "1", new Date(), true);
+        User user = userRepository.saveAndFlush(new User());
+        Track track = trackRepository.saveAndFlush(new Track("1", user, "1"));
+        Device device = deviceRepository.saveAndFlush(new Device(user, "1"));
+
+        history = new History(user, track, new Date(), true, "post", device);
         historyRepository.saveAndFlush(history);
     }
 
