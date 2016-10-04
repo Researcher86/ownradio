@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,15 +14,10 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Track extends AbstractEntity {
-
-    private String path;
-
+public class Device extends AbstractEntity {
     @ManyToOne
-    @JoinColumn(name = "upload_user_id")
-    private User uploadUser;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(nullable = false)
-    private String localDevicePathUpload;
-
+    private String name;
 }

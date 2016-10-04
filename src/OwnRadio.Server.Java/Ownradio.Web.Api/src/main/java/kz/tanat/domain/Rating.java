@@ -18,8 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class History extends AbstractEntity {
-
+public class Rating extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -33,12 +32,5 @@ public class History extends AbstractEntity {
     private Date lastListen;
 
     @Column(nullable = false)
-    private boolean listen;
-
-    @Column(nullable = false)
-    private String method;
-
-    @ManyToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
+    private Integer ratingSum;
 }
