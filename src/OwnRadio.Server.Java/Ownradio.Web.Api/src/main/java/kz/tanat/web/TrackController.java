@@ -1,23 +1,30 @@
 package kz.tanat.web;
 
 import kz.tanat.domain.Track;
+import kz.tanat.domain.User;
 import kz.tanat.service.TrackService;
+import kz.tanat.service.UserService;
 import kz.tanat.util.ResourceFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.beans.PropertyEditorSupport;
 
 @RestController
 @RequestMapping(value = "/tracks")
 public class TrackController {
 
     private final TrackService trackService;
+    private final UserService userService;
 
     @Autowired
-    public TrackController(TrackService trackService) {
+    public TrackController(TrackService trackService, UserService userService) {
         this.trackService = trackService;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -59,4 +66,14 @@ public class TrackController {
         }
     }
 
+    @InitBinder
+    public void dataBinding(WebDataBinder binder) {
+        binder.registerCustomEditor(User.class, "uploadUser", new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                User user = userService.getById(text);
+                setValue(user);
+            }
+        });
+    }
 }
