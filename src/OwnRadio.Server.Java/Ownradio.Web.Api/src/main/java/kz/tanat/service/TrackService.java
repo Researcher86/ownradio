@@ -1,6 +1,7 @@
 package kz.tanat.service;
 
 import kz.tanat.domain.Track;
+import kz.tanat.domain.User;
 import kz.tanat.repository.TrackRepository;
 import kz.tanat.util.ResourceFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class TrackService {
 
     @Transactional(readOnly = true)
     public String getRandomByUserId(String userId) {
-        List<Track> tracks = trackRepository.getRandomTrackByUserId(userId, new PageRequest(0, 1));
+        User user = new User();
+        user.setId(userId);
+        
+        List<Track> tracks = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1));
 
         if (tracks.isEmpty()) {
             return null;
@@ -43,7 +47,7 @@ public class TrackService {
     public void save(Track track, MultipartFile file) {
         trackRepository.save(track);
 
-        String dirName = track.getUploadUserId();
+        String dirName = track.getUploadUser().getId();
         String fileName = track.getId() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
         String filePath = ResourceFile.save(dirName, fileName, file);
 
