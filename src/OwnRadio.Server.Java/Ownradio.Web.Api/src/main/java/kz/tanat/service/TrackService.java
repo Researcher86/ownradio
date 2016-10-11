@@ -16,42 +16,42 @@ import java.util.List;
 @Service
 public class TrackService {
 
-    private final TrackRepository trackRepository;
+	private final TrackRepository trackRepository;
 
-    @Autowired
-    public TrackService(TrackRepository trackRepository) {
-        this.trackRepository = trackRepository;
-    }
+	@Autowired
+	public TrackService(TrackRepository trackRepository) {
+		this.trackRepository = trackRepository;
+	}
 
-    @Transactional(readOnly = true)
-    public Track getById(String id) {
-        return trackRepository.findOne(id);
-    }
+	@Transactional(readOnly = true)
+	public Track getById(String id) {
+		return trackRepository.findOne(id);
+	}
 
-    @Transactional(readOnly = true)
-    public String getRandomByUserId(String userId) {
-        User user = new User();
-        user.setId(userId);
-        
-        List<Track> tracks = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1));
+	@Transactional(readOnly = true)
+	public String getRandomByUserId(String userId) {
+		User user = new User();
+		user.setId(userId);
 
-        if (tracks.isEmpty()) {
-            return null;
-        }
+		List<Track> tracks = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1));
 
-        // HACK: Возвращаем одну запись
-        return tracks.get(0).getId();
-    }
+		if (tracks.isEmpty()) {
+			return null;
+		}
 
-    @Transactional
-    public void save(Track track, MultipartFile file) {
-        trackRepository.save(track);
+		// HACK: Возвращаем одну запись
+		return tracks.get(0).getId();
+	}
 
-        String dirName = track.getUploadUser().getId();
-        String fileName = track.getId() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
-        String filePath = ResourceFile.save(dirName, fileName, file);
+	@Transactional
+	public void save(Track track, MultipartFile file) {
+		trackRepository.save(track);
 
-        track.setPath(filePath);
-        trackRepository.flush();
-    }
+		String dirName = track.getUploadUser().getId();
+		String fileName = track.getId() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
+		String filePath = ResourceFile.save(dirName, fileName, file);
+
+		track.setPath(filePath);
+		trackRepository.flush();
+	}
 }

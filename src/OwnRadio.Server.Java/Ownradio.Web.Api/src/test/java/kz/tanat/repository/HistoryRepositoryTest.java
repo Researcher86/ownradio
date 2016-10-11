@@ -22,52 +22,52 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class HistoryRepositoryTest {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TrackRepository trackRepository;
-    @Autowired
-    private DeviceRepository deviceRepository;
-    @Autowired
-    private HistoryRepository historyRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private TrackRepository trackRepository;
+	@Autowired
+	private DeviceRepository deviceRepository;
+	@Autowired
+	private HistoryRepository historyRepository;
 
-    @Autowired
-    private TestEntityManager entityManager;
+	@Autowired
+	private TestEntityManager entityManager;
 
-    private History history;
+	private History history;
 
-    @Before
-    public void setUp() throws Exception {
-        User user = userRepository.saveAndFlush(new User());
-        Track track = trackRepository.saveAndFlush(new Track("1", user, "1"));
-        Device device = deviceRepository.saveAndFlush(new Device(user, "1"));
+	@Before
+	public void setUp() throws Exception {
+		User user = userRepository.saveAndFlush(new User());
+		Track track = trackRepository.saveAndFlush(new Track("1", user, "1"));
+		Device device = deviceRepository.saveAndFlush(new Device(user, "1"));
 
-        history = new History(user, track, new Date(), true, "post", device);
-        historyRepository.saveAndFlush(history);
-    }
+		history = new History(user, track, new Date(), true, "post", device);
+		historyRepository.saveAndFlush(history);
+	}
 
-    @Test
-    public void createdAt() throws Exception {
-        assertThat(history.getCreatedAt(), not(nullValue()));
-        assertThat(history.getCreatedAt().toString(), is(new Date().toString()));
-    }
+	@Test
+	public void createdAt() throws Exception {
+		assertThat(history.getCreatedAt(), not(nullValue()));
+		assertThat(history.getCreatedAt().toString(), is(new Date().toString()));
+	}
 
-    @Test
-    public void updatedAt() throws Exception {
-        assertThat(history.getCreatedAt(), not(nullValue()));
-        assertThat(history.getCreatedAt().toString(), is(new Date().toString()));
-        assertThat(history.getUpdatedAt(), is(nullValue()));
+	@Test
+	public void updatedAt() throws Exception {
+		assertThat(history.getCreatedAt(), not(nullValue()));
+		assertThat(history.getCreatedAt().toString(), is(new Date().toString()));
+		assertThat(history.getUpdatedAt(), is(nullValue()));
 
-        History storeHistory = historyRepository.findOne(history.getId());
-        storeHistory.setListen(false);
-        historyRepository.saveAndFlush(storeHistory);
+		History storeHistory = historyRepository.findOne(history.getId());
+		storeHistory.setListen(false);
+		historyRepository.saveAndFlush(storeHistory);
 
-        assertThat(storeHistory.getCreatedAt(), not(nullValue()));
-        assertThat(storeHistory.getCreatedAt().toString(), is(history.getCreatedAt().toString()));
+		assertThat(storeHistory.getCreatedAt(), not(nullValue()));
+		assertThat(storeHistory.getCreatedAt().toString(), is(history.getCreatedAt().toString()));
 
-        assertThat(storeHistory.getUpdatedAt(), not(nullValue()));
-        assertThat(storeHistory.getUpdatedAt().toString(), is(new Date().toString()));
-    }
+		assertThat(storeHistory.getUpdatedAt(), not(nullValue()));
+		assertThat(storeHistory.getUpdatedAt().toString(), is(new Date().toString()));
+	}
 
 
 }

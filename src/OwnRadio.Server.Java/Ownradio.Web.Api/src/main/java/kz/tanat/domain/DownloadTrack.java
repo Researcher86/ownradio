@@ -17,12 +17,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "download_tracks")
 public class DownloadTrack extends AbstractEntity {
-    @ManyToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
+	@ManyToOne
+	@JoinColumn(name = "device_id")
+	private Device device;
 
-    @ManyToOne
-    @JoinColumn(name = "track_id")
-    private Track track;
+	@ManyToOne
+	@JoinColumn(name = "track_id")
+	private Track track;
 
 }

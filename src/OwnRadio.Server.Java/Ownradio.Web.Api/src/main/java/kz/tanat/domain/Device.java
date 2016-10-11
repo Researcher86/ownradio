@@ -17,9 +17,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "devices")
 public class Device extends AbstractEntity {
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    private String name;
+	private String name;
 }

@@ -15,6 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity {
-    private String name;
+	private String name;
 
 }

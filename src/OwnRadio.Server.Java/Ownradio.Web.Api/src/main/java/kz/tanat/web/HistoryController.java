@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/histories")
 public class HistoryController {
-    private final HistoryService historyService;
+	private final HistoryService historyService;
 
-    @Autowired
-    public HistoryController(HistoryService historyService) {
-        this.historyService = historyService;
-    }
+	@Autowired
+	public HistoryController(HistoryService historyService) {
+		this.historyService = historyService;
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity save(History history) {
-        try {
-            historyService.save(history);
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity save(History history) {
+		try {
+			historyService.save(history);
 
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+			return new ResponseEntity(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

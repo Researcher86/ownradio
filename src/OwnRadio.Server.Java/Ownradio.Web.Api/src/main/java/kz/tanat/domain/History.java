@@ -18,25 +18,25 @@ import java.util.Date;
 @Table(name = "histories")
 public class History extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "track_id")
-    private Track trackId;
+	@ManyToOne
+	@JoinColumn(name = "track_id")
+	private Track trackId;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(nullable = false)
-    private Date lastListen;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(nullable = false)
+	private Date lastListen;
 
-    @Column(nullable = false)
-    private boolean listen;
+	@Column(nullable = false)
+	private boolean listen;
 
-    @Column(nullable = false)
-    private String method;
+	@Column(nullable = false)
+	private String method;
 
-    @ManyToOne
-    @JoinColumn(name = "device_id")
-    private Device device;
+	@ManyToOne
+	@JoinColumn(name = "device_id")
+	private Device device;
 }

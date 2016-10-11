@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeviceService {
 
-    private final DeviceRepository deviceRepository;
+	private final DeviceRepository deviceRepository;
 
-    @Autowired
-    public DeviceService(DeviceRepository deviceRepository) {
-        this.deviceRepository = deviceRepository;
-    }
+	@Autowired
+	public DeviceService(DeviceRepository deviceRepository) {
+		this.deviceRepository = deviceRepository;
+	}
 
 
-    public void save(Device device) {
-        deviceRepository.saveAndFlush(device);
-    }
+	public void save(Device device) {
+		deviceRepository.saveAndFlush(device);
+	}
 }

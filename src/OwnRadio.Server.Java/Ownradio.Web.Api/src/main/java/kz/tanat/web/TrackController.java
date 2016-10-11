@@ -18,62 +18,62 @@ import java.beans.PropertyEditorSupport;
 @RequestMapping(value = "/tracks")
 public class TrackController {
 
-    private final TrackService trackService;
-    private final UserService userService;
+	private final TrackService trackService;
+	private final UserService userService;
 
-    @Autowired
-    public TrackController(TrackService trackService, UserService userService) {
-        this.trackService = trackService;
-        this.userService = userService;
-    }
+	@Autowired
+	public TrackController(TrackService trackService, UserService userService) {
+		this.trackService = trackService;
+		this.userService = userService;
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity save(@RequestParam MultipartFile file, Track track) {
-        if (file.isEmpty()) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity save(@RequestParam MultipartFile file, Track track) {
+		if (file.isEmpty()) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
 
-        try {
-            trackService.save(track, file);
+		try {
+			trackService.save(track, file);
 
-            return new ResponseEntity(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+			return new ResponseEntity(HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-    }
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getTrack(@PathVariable String id) {
-        Track track = trackService.getById(id);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getTrack(@PathVariable String id) {
+		Track track = trackService.getById(id);
 
-        if (track != null) {
-            byte[] bytes = ResourceFile.read(track.getPath());
-            return new ResponseEntity<>(bytes, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+		if (track != null) {
+			byte[] bytes = ResourceFile.read(track.getPath());
+			return new ResponseEntity<>(bytes, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @RequestMapping(value = "/{userId}/random", method = RequestMethod.GET)
-    public ResponseEntity<?> getRandomTrack(@PathVariable String userId) {
-        String trackId = trackService.getRandomByUserId(userId);
+	@RequestMapping(value = "/{userId}/random", method = RequestMethod.GET)
+	public ResponseEntity<?> getRandomTrack(@PathVariable String userId) {
+		String trackId = trackService.getRandomByUserId(userId);
 
-        if (trackId != null && !trackId.isEmpty()) {
-            return new ResponseEntity<>(trackId, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+		if (trackId != null && !trackId.isEmpty()) {
+			return new ResponseEntity<>(trackId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @InitBinder
-    public void dataBinding(WebDataBinder binder) {
-        binder.registerCustomEditor(User.class, "uploadUser", new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                User user = userService.getById(text);
-                setValue(user);
-            }
-        });
-    }
+	@InitBinder
+	public void dataBinding(WebDataBinder binder) {
+		binder.registerCustomEditor(User.class, "uploadUser", new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) {
+				User user = userService.getById(text);
+				setValue(user);
+			}
+		});
+	}
 }

@@ -15,13 +15,13 @@ import javax.persistence.*;
 @Table(name = "tracks")
 public class Track extends AbstractEntity {
 
-    private String path;
+	private String path;
 
-    @ManyToOne
-    @JoinColumn(name = "upload_user_id")
-    private User uploadUser;
+	@ManyToOne
+	@JoinColumn(name = "upload_user_id")
+	private User uploadUser;
 
-    @Column(nullable = false)
-    private String localDevicePathUpload;
+	@Column(nullable = false)
+	private String localDevicePathUpload;
 
 }

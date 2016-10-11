@@ -17,18 +17,18 @@ import java.util.Date;
 @Entity
 @Table(name = "ratings")
 public class Rating extends AbstractEntity {
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "track_id")
-    private Track trackId;
+	@ManyToOne
+	@JoinColumn(name = "track_id")
+	private Track trackId;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(nullable = false)
-    private Date lastListen;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column(nullable = false)
+	private Date lastListen;
 
-    @Column(nullable = false)
-    private Integer ratingSum;
+	@Column(nullable = false)
+	private Integer ratingSum;
 }
