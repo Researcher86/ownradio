@@ -1,7 +1,7 @@
 package ownradio.repository;
 
-import ownradio.domain.DownloadTrack;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ownradio.domain.DownloadTrack;
 
 public interface DownloadTrackRepository extends JpaRepository<DownloadTrack, String> {
 }

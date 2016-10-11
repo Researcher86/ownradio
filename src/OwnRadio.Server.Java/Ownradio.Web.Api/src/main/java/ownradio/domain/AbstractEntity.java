@@ -3,6 +3,7 @@ package ownradio.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import ownradio.annotation.DisplayName;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,12 +18,14 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
+	@DisplayName(key = "id")
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column(unique = true)
 	private String id;
 
+	@DisplayName(key = "version")
 	@Version
 	private Integer version;
 

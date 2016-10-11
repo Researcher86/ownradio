@@ -1,9 +1,9 @@
 package ownradio.service;
 
-import ownradio.domain.Rating;
-import ownradio.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ownradio.domain.Rating;
+import ownradio.repository.RatingRepository;
 
 @Service
 public class RatingService {

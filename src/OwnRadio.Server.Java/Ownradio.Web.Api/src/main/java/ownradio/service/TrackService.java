@@ -1,15 +1,15 @@
 package ownradio.service;
 
-import ownradio.domain.Track;
-import ownradio.domain.User;
-import ownradio.repository.TrackRepository;
-import ownradio.util.ResourceFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ownradio.domain.Track;
+import ownradio.domain.User;
+import ownradio.repository.TrackRepository;
+import ownradio.util.ResourceUtil;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class TrackService {
 
 		String dirName = track.getUploadUser().getId();
 		String fileName = track.getId() + "." + StringUtils.getFilenameExtension(file.getOriginalFilename());
-		String filePath = ResourceFile.save(dirName, fileName, file);
+		String filePath = ResourceUtil.save(dirName, fileName, file);
 
 		track.setPath(filePath);
 		trackRepository.flush();

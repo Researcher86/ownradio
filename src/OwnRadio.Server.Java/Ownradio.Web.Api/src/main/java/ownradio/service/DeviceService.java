@@ -1,9 +1,9 @@
 package ownradio.service;
 
-import ownradio.domain.Device;
-import ownradio.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ownradio.domain.Device;
+import ownradio.repository.DeviceRepository;
 
 @Service
 public class DeviceService {

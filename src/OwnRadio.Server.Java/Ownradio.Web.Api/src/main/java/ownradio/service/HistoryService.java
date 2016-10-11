@@ -1,9 +1,9 @@
 package ownradio.service;
 
-import ownradio.domain.History;
-import ownradio.repository.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ownradio.domain.History;
+import ownradio.repository.HistoryRepository;
 
 @Service
 public class HistoryService {

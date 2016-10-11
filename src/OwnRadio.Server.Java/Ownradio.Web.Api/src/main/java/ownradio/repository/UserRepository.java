@@ -1,7 +1,7 @@
 package ownradio.repository;
 
-import ownradio.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ownradio.domain.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 }

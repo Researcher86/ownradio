@@ -1,16 +1,16 @@
 package ownradio.web;
 
-import ownradio.domain.Track;
-import ownradio.domain.User;
-import ownradio.service.TrackService;
-import ownradio.service.UserService;
-import ownradio.util.ResourceFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ownradio.domain.Track;
+import ownradio.domain.User;
+import ownradio.service.TrackService;
+import ownradio.service.UserService;
+import ownradio.util.ResourceUtil;
 
 import java.beans.PropertyEditorSupport;
 
@@ -48,7 +48,7 @@ public class TrackController {
 		Track track = trackService.getById(id);
 
 		if (track != null) {
-			byte[] bytes = ResourceFile.read(track.getPath());
+			byte[] bytes = ResourceUtil.read(track.getPath());
 			return new ResponseEntity<>(bytes, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

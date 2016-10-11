@@ -5,13 +5,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class ResourceFile {
-	public static final String UPLOADING_DIR = System.getProperty("user.dir") + "/userfile/";
+public class ResourceUtil {
+	public static final String USER_DIR = System.getProperty("user.dir");
+	public static final String UPLOADING_DIR = USER_DIR + "/userfile/";
+	public static final String MESSAGE_DIR = USER_DIR + "/msg";
+	public static final String MESSAGE_BASE_NAME = "masseage";
 
-	private ResourceFile() {
+	private ResourceUtil() {
 	}
 
 	public static byte[] read(String fileName) {
@@ -38,6 +46,19 @@ public class ResourceFile {
 		} catch (Exception e) {
 			throw new RuntimeException("Error save file", e);
 		}
+	}
+
+	public static ResourceBundle getResourceBundle() {
+		File file = new File(MESSAGE_DIR);
+		URL[] urls;
+		try {
+			urls = new URL[]{file.toURI().toURL()};
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		ClassLoader loader = new URLClassLoader(urls);
+
+		return ResourceBundle.getBundle(MESSAGE_BASE_NAME, Locale.getDefault(), loader);
 	}
 
 }

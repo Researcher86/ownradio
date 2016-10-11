@@ -1,9 +1,5 @@
 package ownradio.repository;
 
-import ownradio.domain.Device;
-import ownradio.domain.History;
-import ownradio.domain.Track;
-import ownradio.domain.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
+import ownradio.domain.Device;
+import ownradio.domain.History;
+import ownradio.domain.Track;
+import ownradio.domain.User;
 
 import java.util.Date;
 
