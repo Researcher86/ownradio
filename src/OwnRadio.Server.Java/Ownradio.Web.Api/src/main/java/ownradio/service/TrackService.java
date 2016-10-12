@@ -1,7 +1,6 @@
 package ownradio.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -11,6 +10,7 @@ import ownradio.domain.User;
 import ownradio.repository.TrackRepository;
 import ownradio.util.ResourceUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,7 +33,7 @@ public class TrackService {
 		User user = new User();
 		user.setId(userId);
 
-		List<Track> tracks = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1));
+		List<Track> tracks = new ArrayList<>();//trackRepository.getRandomTrackByUserId(user.getId());
 
 		if (tracks.isEmpty()) {
 			return null;

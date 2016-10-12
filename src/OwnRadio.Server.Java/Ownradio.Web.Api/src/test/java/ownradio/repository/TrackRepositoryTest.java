@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import ownradio.domain.Track;
 import ownradio.domain.User;
@@ -16,8 +17,10 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
+@ActiveProfiles("prod")
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class TrackRepositoryTest {
 	@Autowired
 	private TrackRepository trackRepository;
@@ -40,7 +43,7 @@ public class TrackRepositoryTest {
 		Set<Track> trackSet = new HashSet<>();
 
 		for (int i = 0; i < 3; i++) {
-			Track track = trackRepository.getRandomTrackByUserId(user, new PageRequest(0, 1)).get(0);
+			Track track = trackRepository.getRandomTrackByUserId(user.getId());
 			trackSet.add(track);
 		}
 
