@@ -13,7 +13,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static ownradio.util.ReflectUtil.getDisplayNameFields;
 
-@RunWith(JUnit4.class)
 public class UserTest {
 
 	private Map<String, String> expected;
