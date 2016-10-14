@@ -23,7 +23,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testShowDisplayNameRu() throws Exception {
+	public void showDisplayNameRu() throws Exception {
 		Locale.setDefault(new Locale("ru"));
 
 		expected.put("id", "Название идентификатора на ru");
@@ -36,7 +36,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testShowDisplayNameEn() throws Exception {
+	public void showDisplayNameEn() throws Exception {
 		Locale.setDefault(new Locale("en"));
 
 		expected.put("id", "Название идентификатора на en");
