@@ -6,6 +6,8 @@ import ownradio.domain.Device;
 import ownradio.repository.DeviceRepository;
 import ownradio.service.DeviceService;
 
+import java.util.UUID;
+
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
@@ -20,5 +22,10 @@ public class DeviceServiceImpl implements DeviceService {
 	@Override
 	public void save(Device device) {
 		deviceRepository.saveAndFlush(device);
+	}
+
+	@Override
+	public Device getById(UUID uuid) {
+		return deviceRepository.findOne(uuid);
 	}
 }
